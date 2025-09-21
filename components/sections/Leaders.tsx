@@ -108,14 +108,22 @@ export default function Leaders({ lang }: LeadersProps) {
                     }}
                     onError={(e) => {
                       console.error("Video loading error:", e);
+                      console.error("Video source:", testimonial.video);
+                      console.error("Video element:", e.target);
+                      // Try to reload the video
+                      const video = e.target as HTMLVideoElement;
+                      setTimeout(() => {
+                        video.load();
+                      }, 1000);
                     }}
                     onCanPlay={(e) => {
                       // Video is ready to play
                       const video = e.target as HTMLVideoElement;
-                      video.load();
+                      console.log("Video can play:", testimonial.video);
                     }}
                   >
                     <source src={testimonial.video} type="video/mp4" />
+                    <source src={testimonial.video} type="video/mp4; codecs=avc1.42E01E" />
                     Your browser does not support the video tag.
                   </video>
 
