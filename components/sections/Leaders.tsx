@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 
 // كومبوننت القادة
 interface LeadersProps {
@@ -16,22 +17,25 @@ export default function Leaders({ lang }: LeadersProps) {
       id: "malek",
       name: { ar: "مالك", en: "Malek" },
       age: { ar: "13 سنة", en: "13 years" },
-      video: "/malek_video.mp4",
-      thumbnail: "/malek_video.mp4", // We'll use the video as thumbnail
+      video: "/malek_video.mp4", // Will be compressed
+      thumbnail: "/malek_video.mp4",
+      isExternal: false,
     },
     {
       id: "saja",
       name: { ar: "سجى", en: "Saja" },
       age: { ar: "9 سنوات", en: "9 years" },
-      video: "/whatsapp_video_saja.mp4",
+      video: "/whatsapp_video_saja.mp4", // Will be compressed
       thumbnail: "/whatsapp_video_saja.mp4",
+      isExternal: false,
     },
     {
       id: "parent",
       name: { ar: "ولي أمر", en: "Parent" },
       age: { ar: "", en: "" },
-      video: "/whatsapp_video_parent.mp4",
+      video: "/whatsapp_video_parent.mp4", // Will be compressed
       thumbnail: "/whatsapp_video_parent.mp4",
+      isExternal: false,
     },
   ];
 
