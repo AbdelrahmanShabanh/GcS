@@ -16,22 +16,22 @@ export default function Leaders({ lang }: LeadersProps) {
       id: "malek",
       name: { ar: "مالك", en: "Malek" },
       age: { ar: "13 سنة", en: "13 years" },
-      video: "/IMG_4690.MP4",
-      thumbnail: "/IMG_4690.MP4", // We'll use the video as thumbnail
+      video: "/malek_video.mp4",
+      thumbnail: "/malek_video.mp4", // We'll use the video as thumbnail
     },
     {
       id: "saja",
       name: { ar: "سجى", en: "Saja" },
       age: { ar: "9 سنوات", en: "9 years" },
-      video: "/WhatsApp Video 2025-09-10 at 13.20.26_b21eb067.mp4",
-      thumbnail: "/WhatsApp Video 2025-09-10 at 13.20.26_b21eb067.mp4",
+      video: "/whatsapp_video_saja.mp4",
+      thumbnail: "/whatsapp_video_saja.mp4",
     },
     {
       id: "parent",
       name: { ar: "ولي أمر", en: "Parent" },
       age: { ar: "", en: "" },
-      video: "/WhatsApp Video 2025-09-10 at 13.20.26_c6c4f8ba.mp4",
-      thumbnail: "/WhatsApp Video 2025-09-10 at 13.20.26_c6c4f8ba.mp4",
+      video: "/whatsapp_video_parent.mp4",
+      thumbnail: "/whatsapp_video_parent.mp4",
     },
   ];
 
@@ -92,6 +92,8 @@ export default function Leaders({ lang }: LeadersProps) {
                     muted
                     loop
                     preload="metadata"
+                    playsInline
+                    webkit-playsinline="true"
                     poster={testimonial.thumbnail}
                     onLoadedMetadata={(e) => {
                       // Ensure video duration is properly loaded
@@ -101,7 +103,12 @@ export default function Leaders({ lang }: LeadersProps) {
                       }
                     }}
                     onError={(e) => {
-                      console.error('Video loading error:', e);
+                      console.error("Video loading error:", e);
+                    }}
+                    onCanPlay={(e) => {
+                      // Video is ready to play
+                      const video = e.target as HTMLVideoElement;
+                      video.load();
                     }}
                   >
                     <source src={testimonial.video} type="video/mp4" />
