@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 interface AboutUsProps {
-  lang: string;
+  lang: "ar" | "en";
 }
 
 export default function AboutUs({ lang }: AboutUsProps) {
@@ -217,23 +217,23 @@ export default function AboutUs({ lang }: AboutUsProps) {
 
   return (
     <section
-      className="py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-orange-50 to-teal-50"
+      className="py-8 bg-gradient-to-br from-orange-50 to-teal-50 sm:py-12 lg:py-16"
       id="about"
     >
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className={`max-w-6xl mx-auto ${lang === "ar" ? "rtl" : "ltr"}`}>
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <div className="mb-12 text-center">
+            <h1 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">
               {content[lang].title}
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-teal-500 mx-auto rounded-full"></div>
+            <div className="mx-auto w-24 h-1 bg-gradient-to-r from-orange-500 to-teal-500 rounded-full"></div>
           </div>
 
           {/* Introduction */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 mb-8">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+          <div className="p-6 mb-8 bg-white rounded-2xl shadow-lg sm:p-8">
+            <div className="flex gap-4 items-center mb-6">
+              <div className="flex justify-center items-center w-12 h-12 bg-orange-500 rounded-full">
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -248,20 +248,20 @@ export default function AboutUs({ lang }: AboutUsProps) {
                   />
                 </svg>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                 {content[lang].introduction.title}
               </h2>
             </div>
-            <p className="text-gray-700 leading-relaxed text-base sm:text-lg">
+            <p className="text-base leading-relaxed text-gray-700 sm:text-lg">
               {content[lang].introduction.content}
             </p>
           </div>
 
           {/* Vision & Mission */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center">
+          <div className="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-2">
+            <div className="p-6 bg-white rounded-2xl shadow-lg sm:p-8">
+              <div className="flex gap-4 items-center mb-6">
+                <div className="flex justify-center items-center w-12 h-12 bg-teal-500 rounded-full">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="none"
@@ -282,18 +282,18 @@ export default function AboutUs({ lang }: AboutUsProps) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                   {content[lang].vision.title}
                 </h3>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="leading-relaxed text-gray-700">
                 {content[lang].vision.content}
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+            <div className="p-6 bg-white rounded-2xl shadow-lg sm:p-8">
+              <div className="flex gap-4 items-center mb-6">
+                <div className="flex justify-center items-center w-12 h-12 bg-purple-500 rounded-full">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="none"
@@ -308,20 +308,20 @@ export default function AboutUs({ lang }: AboutUsProps) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                   {content[lang].mission.title}
                 </h3>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="leading-relaxed text-gray-700">
                 {content[lang].mission.content}
               </p>
             </div>
           </div>
 
           {/* Core Values */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 mb-8">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+          <div className="p-6 mb-8 bg-white rounded-2xl shadow-lg sm:p-8">
+            <div className="flex gap-4 items-center mb-8">
+              <div className="flex justify-center items-center w-12 h-12 bg-orange-500 rounded-full">
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -336,20 +336,20 @@ export default function AboutUs({ lang }: AboutUsProps) {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h3 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                 {content[lang].values.title}
               </h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {content[lang].values.items.map((value, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-br from-orange-50 to-teal-50 rounded-xl p-6"
+                  className="p-6 bg-gradient-to-br from-orange-50 to-teal-50 rounded-xl"
                 >
-                  <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                  <h4 className="mb-3 text-lg font-semibold text-gray-900">
                     {value.title}
                   </h4>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-gray-700">
                     {value.description}
                   </p>
                 </div>
@@ -358,10 +358,10 @@ export default function AboutUs({ lang }: AboutUsProps) {
           </div>
 
           {/* Target Audience & Story */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center">
+          <div className="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-2">
+            <div className="p-6 bg-white rounded-2xl shadow-lg sm:p-8">
+              <div className="flex gap-4 items-center mb-6">
+                <div className="flex justify-center items-center w-12 h-12 bg-teal-500 rounded-full">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="none"
@@ -376,18 +376,18 @@ export default function AboutUs({ lang }: AboutUsProps) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                   {content[lang].audience.title}
                 </h3>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="leading-relaxed text-gray-700">
                 {content[lang].audience.content}
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+            <div className="p-6 bg-white rounded-2xl shadow-lg sm:p-8">
+              <div className="flex gap-4 items-center mb-6">
+                <div className="flex justify-center items-center w-12 h-12 bg-purple-500 rounded-full">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="none"
@@ -402,21 +402,21 @@ export default function AboutUs({ lang }: AboutUsProps) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                   {content[lang].story.title}
                 </h3>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="leading-relaxed text-gray-700">
                 {content[lang].story.content}
               </p>
             </div>
           </div>
 
           {/* Purpose & Brand */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+          <div className="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-2">
+            <div className="p-6 bg-white rounded-2xl shadow-lg sm:p-8">
+              <div className="flex gap-4 items-center mb-6">
+                <div className="flex justify-center items-center w-12 h-12 bg-orange-500 rounded-full">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="none"
@@ -431,18 +431,18 @@ export default function AboutUs({ lang }: AboutUsProps) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                   {content[lang].purpose.title}
                 </h3>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="leading-relaxed text-gray-700">
                 {content[lang].purpose.content}
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center">
+            <div className="p-6 bg-white rounded-2xl shadow-lg sm:p-8">
+              <div className="flex gap-4 items-center mb-6">
+                <div className="flex justify-center items-center w-12 h-12 bg-teal-500 rounded-full">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="none"
@@ -457,20 +457,20 @@ export default function AboutUs({ lang }: AboutUsProps) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                   {content[lang].brand.title}
                 </h3>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="leading-relaxed text-gray-700">
                 {content[lang].brand.content}
               </p>
             </div>
           </div>
 
           {/* Tone of Voice */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 mb-8">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+          <div className="p-6 mb-8 bg-white rounded-2xl shadow-lg sm:p-8">
+            <div className="flex gap-4 items-center mb-6">
+              <div className="flex justify-center items-center w-12 h-12 bg-purple-500 rounded-full">
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -485,19 +485,19 @@ export default function AboutUs({ lang }: AboutUsProps) {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h3 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                 {content[lang].tone.title}
               </h3>
             </div>
-            <p className="text-gray-700 leading-relaxed text-base sm:text-lg">
+            <p className="text-base leading-relaxed text-gray-700 sm:text-lg">
               {content[lang].tone.content}
             </p>
           </div>
 
           {/* Why Choose Us */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+          <div className="p-6 bg-white rounded-2xl shadow-lg sm:p-8">
+            <div className="flex gap-4 items-center mb-8">
+              <div className="flex justify-center items-center w-12 h-12 bg-orange-500 rounded-full">
                 <svg
                   className="w-6 h-6 text-white"
                   fill="none"
@@ -512,20 +512,20 @@ export default function AboutUs({ lang }: AboutUsProps) {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h3 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                 {content[lang].whyChoose.title}
               </h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {content[lang].whyChoose.items.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-br from-teal-50 to-orange-50 rounded-xl p-6"
+                  className="p-6 bg-gradient-to-br from-teal-50 to-orange-50 rounded-xl"
                 >
-                  <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                  <h4 className="mb-3 text-lg font-semibold text-gray-900">
                     {item.title}
                   </h4>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-gray-700">
                     {item.description}
                   </p>
                 </div>
