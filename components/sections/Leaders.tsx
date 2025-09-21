@@ -63,11 +63,10 @@ export default function Leaders({ lang }: LeadersProps) {
             >
               {/* Image */}
               <div className="relative w-full h-48 bg-gray-100">
-                <Image
+                <img
                   src={testimonial.thumbnail}
                   alt={`${testimonial.name[lang]} testimonial`}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
 
