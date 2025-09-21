@@ -141,7 +141,7 @@ export default function Pricing({ lang }: PricingProps) {
               key={plan.t[lang]}
               className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
                 plan.best
-                  ? "bg-teal-500 text-white scale-105 lg:scale-110"
+                  ? "bg-blue-500 text-white scale-105 lg:scale-110"
                   : "text-gray-900"
               }`}
             >

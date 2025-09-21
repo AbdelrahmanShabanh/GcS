@@ -93,6 +93,16 @@ export default function Leaders({ lang }: LeadersProps) {
                     loop
                     preload="metadata"
                     poster={testimonial.thumbnail}
+                    onLoadedMetadata={(e) => {
+                      // Ensure video duration is properly loaded
+                      const video = e.target as HTMLVideoElement;
+                      if (video.duration) {
+                        video.currentTime = 0;
+                      }
+                    }}
+                    onError={(e) => {
+                      console.error('Video loading error:', e);
+                    }}
                   >
                     <source src={testimonial.video} type="video/mp4" />
                     Your browser does not support the video tag.
