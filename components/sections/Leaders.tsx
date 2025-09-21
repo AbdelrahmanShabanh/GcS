@@ -22,7 +22,7 @@ export default function Leaders({ lang }: LeadersProps) {
       age: { ar: "9 سنوات", en: "9 years" },
       video:
         "https://drive.google.com/file/d/1bTfejRVs7lUNPlC4LZBqZSX-niLliKux/view?usp=sharing",
-      thumbnail: "/image copy.png",
+      thumbnail: "/image_copy.png",
     },
     {
       id: "parent",
