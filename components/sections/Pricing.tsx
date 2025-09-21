@@ -137,120 +137,124 @@ export default function Pricing({ lang }: PricingProps) {
 
         <div className="grid grid-cols-1 gap-6 mx-auto max-w-7xl lg:grid-cols-3 lg:gap-8">
           {plans.map((plan, index) => (
-            <div
-              key={plan.t[lang]}
-              className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
+              <div
+                key={plan.t[lang]}
+              className={`relative rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
                 plan.best
-                  ? "bg-blue-500 text-white scale-105 lg:scale-110"
-                  : "text-gray-900"
+                  ? "bg-teal-500 text-white scale-105 lg:scale-110"
+                  : "bg-white text-gray-900"
               }`}
-            >
-              {plan.best && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="px-4 py-1 text-sm font-medium text-white bg-orange-500 rounded-full">
-                    {lang === "ar" ? "الأكثر شعبية" : "Most Popular"}
-                  </span>
-                </div>
-              )}
+              >
+                {plan.best && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span className="px-4 py-1 text-sm font-medium text-white bg-orange-500 rounded-full">
+                      {lang === "ar" ? "الأكثر شعبية" : "Most Popular"}
+                    </span>
+                  </div>
+                )}
 
-              <div className="p-6 sm:p-8">
-                <h3
-                  className={`text-xl sm:text-2xl font-bold mb-4 ${
+                <div
+                  className={`p-6 sm:p-8 ${
                     plan.best ? "text-white" : "text-gray-900"
                   }`}
                 >
-                  {plan.t[lang]}
-                </h3>
-
-                <div className="mb-6">
-                  <div
-                    className={`text-3xl sm:text-4xl font-extrabold ${
-                      plan.best ? "text-white" : "text-orange-500"
+                  <h3
+                    className={`text-xl sm:text-2xl font-bold mb-4 ${
+                      plan.best ? "text-white" : "text-gray-900"
                     }`}
                   >
-                    {plan.p}
-                  </div>
-                  <div
-                    className={`text-sm font-medium ${
-                      plan.best ? "text-white/80" : "text-gray-500"
-                    }`}
-                  >
-                    / {plan.period[lang]}
-                  </div>
-                </div>
+                    {plan.t[lang]}
+                  </h3>
 
-                <ul
-                  className={`space-y-3 mb-6 ${
-                    plan.best ? "text-white" : "text-gray-700"
-                  }`}
-                >
-                  {plan.f[lang].map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex gap-3 items-start">
-                      <div
-                        className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${
-                          plan.best
-                            ? "bg-white text-teal-500"
-                            : "bg-purple-500 text-white"
-                        }`}
-                      >
-                        <svg
-                          className="w-3 h-3"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                      <span className="text-sm leading-relaxed sm:text-base">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="space-y-3">
-                  <button
-                    onClick={() => handleWhatsAppClick(plan)}
-                    className={`w-full py-3 px-6 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2 ${
-                      plan.best
-                        ? "bg-white text-orange-500 hover:bg-gray-50"
-                        : "bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white"
-                    }`}
-                  >
-                    {content[lang].subscribe}
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                  <div className="mb-6">
+                    <div
+                      className={`text-3xl sm:text-4xl font-extrabold ${
+                        plan.best ? "text-white" : "text-orange-500"
+                      }`}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
+                      {plan.p}
+                    </div>
+                    <div
+                      className={`text-sm font-medium ${
+                        plan.best ? "text-white/80" : "text-gray-500"
+                      }`}
+                    >
+                      / {plan.period[lang]}
+                    </div>
+                  </div>
 
-                  <button
-                    onClick={handleFreeSessionClick}
-                    className={`w-full py-2 px-4 rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
-                      plan.best
-                        ? "bg-white/20 text-white border border-white/30 hover:bg-white/30"
-                        : "bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200"
+                  <ul
+                    className={`space-y-3 mb-6 ${
+                      plan.best ? "text-white" : "text-gray-700"
                     }`}
                   >
-                    {lang === "ar"
-                      ? "اسأل عن الحصه المجانية"
-                      : "Ask for Free Session"}
-                  </button>
+                    {plan.f[lang].map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex gap-3 items-start">
+                        <div
+                          className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${
+                            plan.best
+                              ? "bg-white text-teal-500"
+                              : "bg-purple-500 text-white"
+                          }`}
+                        >
+                          <svg
+                            className="w-3 h-3"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <span className="text-sm leading-relaxed sm:text-base">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="space-y-3">
+                    <button
+                      onClick={() => handleWhatsAppClick(plan)}
+                      className={`w-full py-3 px-6 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2 ${
+                        plan.best
+                          ? "bg-white text-orange-500 hover:bg-gray-50"
+                          : "bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white"
+                      }`}
+                    >
+                      {content[lang].subscribe}
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </button>
+
+                    <button
+                      onClick={handleFreeSessionClick}
+                      className={`w-full py-2 px-4 rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
+                        plan.best
+                          ? "bg-white/20 text-white border border-white/30 hover:bg-white/30"
+                          : "bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200"
+                      }`}
+                    >
+                      {lang === "ar"
+                        ? "اسأل عن الحصه المجانية"
+                        : "Ask for Free Session"}
+                    </button>
+                  </div>
                 </div>
-              </div>
             </div>
           ))}
         </div>
