@@ -1,0 +1,4 @@
+Assets are copied from /assets/img during migration.
+
+
+
