@@ -17,25 +17,25 @@ export default function Leaders({ lang }: LeadersProps) {
       id: "malek",
       name: { ar: "مالك", en: "Malek" },
       age: { ar: "13 سنة", en: "13 years" },
-      video: "/malek_video.mp4", // Will be compressed
-      thumbnail: "/malek_video.mp4",
-      isExternal: false,
+      video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder - replace with actual video URL
+      thumbnail: "/student1.png",
+      isExternal: true,
     },
     {
       id: "saja",
       name: { ar: "سجى", en: "Saja" },
       age: { ar: "9 سنوات", en: "9 years" },
-      video: "/whatsapp_video_saja.mp4", // Will be compressed
-      thumbnail: "/whatsapp_video_saja.mp4",
-      isExternal: false,
+      video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder - replace with actual video URL
+      thumbnail: "/student2.png",
+      isExternal: true,
     },
     {
       id: "parent",
       name: { ar: "ولي أمر", en: "Parent" },
       age: { ar: "", en: "" },
-      video: "/whatsapp_video_parent.mp4", // Will be compressed
-      thumbnail: "/whatsapp_video_parent.mp4",
-      isExternal: false,
+      video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder - replace with actual video URL
+      thumbnail: "/student3.png",
+      isExternal: true,
     },
   ];
 
@@ -49,11 +49,17 @@ export default function Leaders({ lang }: LeadersProps) {
   };
 
   const handleVideoClick = (videoId: string) => {
-    setSelectedVideo(videoId);
-    // Play the video
-    const video = videoRefs.current[videoId];
-    if (video) {
-      video.play();
+    const testimonial = testimonials.find((t) => t.id === videoId);
+    if (testimonial?.isExternal) {
+      // Open external video in new tab
+      window.open(testimonial.video, "_blank");
+    } else {
+      setSelectedVideo(videoId);
+      // Play the video
+      const video = videoRefs.current[videoId];
+      if (video) {
+        video.play();
+      }
     }
   };
 
@@ -90,42 +96,54 @@ export default function Leaders({ lang }: LeadersProps) {
                 onClick={() => handleVideoClick(testimonial.id)}
               >
                 <div className="relative bg-gray-900 aspect-video">
-                  <video
-                    ref={(el) => (videoRefs.current[testimonial.id] = el)}
-                    className="object-cover w-full h-full"
-                    muted
-                    loop
-                    preload="metadata"
-                    playsInline
-                    webkit-playsinline="true"
-                    poster={testimonial.thumbnail}
-                    onLoadedMetadata={(e) => {
-                      // Ensure video duration is properly loaded
-                      const video = e.target as HTMLVideoElement;
-                      if (video.duration) {
-                        video.currentTime = 0;
-                      }
-                    }}
-                    onError={(e) => {
-                      console.error("Video loading error:", e);
-                      console.error("Video source:", testimonial.video);
-                      console.error("Video element:", e.target);
-                      // Try to reload the video
-                      const video = e.target as HTMLVideoElement;
-                      setTimeout(() => {
-                        video.load();
-                      }, 1000);
-                    }}
-                    onCanPlay={(e) => {
-                      // Video is ready to play
-                      const video = e.target as HTMLVideoElement;
-                      console.log("Video can play:", testimonial.video);
-                    }}
-                  >
-                    <source src={testimonial.video} type="video/mp4" />
-                    <source src={testimonial.video} type="video/mp4; codecs=avc1.42E01E" />
-                    Your browser does not support the video tag.
-                  </video>
+                  {testimonial.isExternal ? (
+                    <Image
+                      src={testimonial.thumbnail}
+                      alt={`${testimonial.name[lang]} testimonial`}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <video
+                      ref={(el) => (videoRefs.current[testimonial.id] = el)}
+                      className="object-cover w-full h-full"
+                      muted
+                      loop
+                      preload="metadata"
+                      playsInline
+                      webkit-playsinline="true"
+                      poster={testimonial.thumbnail}
+                      onLoadedMetadata={(e) => {
+                        // Ensure video duration is properly loaded
+                        const video = e.target as HTMLVideoElement;
+                        if (video.duration) {
+                          video.currentTime = 0;
+                        }
+                      }}
+                      onError={(e) => {
+                        console.error("Video loading error:", e);
+                        console.error("Video source:", testimonial.video);
+                        console.error("Video element:", e.target);
+                        // Try to reload the video
+                        const video = e.target as HTMLVideoElement;
+                        setTimeout(() => {
+                          video.load();
+                        }, 1000);
+                      }}
+                      onCanPlay={(e) => {
+                        // Video is ready to play
+                        const video = e.target as HTMLVideoElement;
+                        console.log("Video can play:", testimonial.video);
+                      }}
+                    >
+                      <source src={testimonial.video} type="video/mp4" />
+                      <source
+                        src={testimonial.video}
+                        type="video/mp4; codecs=avc1.42E01E"
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
 
                   {/* Play overlay */}
                   <div className="flex absolute inset-0 justify-center items-center transition-colors bg-black/30 group-hover:bg-black/20">
