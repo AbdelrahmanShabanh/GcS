@@ -19,7 +19,7 @@ export default function Leaders({ lang }: LeadersProps) {
       age: { ar: "13 سنة", en: "13 years" },
       video:
         "https://drive.google.com/file/d/1rgc7EyfU8yBLqWwPckEdcOwV61JpiUXS/view?usp=sharing",
-      thumbnail: "/student1.png",
+      thumbnail: "/image copy 2.png",
       isExternal: true,
     },
     {
@@ -28,7 +28,7 @@ export default function Leaders({ lang }: LeadersProps) {
       age: { ar: "9 سنوات", en: "9 years" },
       video:
         "https://drive.google.com/file/d/1bTfejRVs7lUNPlC4LZBqZSX-niLliKux/view?usp=sharing",
-      thumbnail: "/student2.png",
+      thumbnail: "/image copy.png",
       isExternal: true,
     },
     {
@@ -37,7 +37,7 @@ export default function Leaders({ lang }: LeadersProps) {
       age: { ar: "", en: "" },
       video:
         "https://drive.google.com/file/d/1lFay3XhbgtUkxJUjdrsfZXmsPHsR_iNg/view?usp=sharing",
-      thumbnail: "/student3.png",
+      thumbnail: "/image.png",
       isExternal: true,
     },
   ];
@@ -147,25 +147,24 @@ export default function Leaders({ lang }: LeadersProps) {
                       Your browser does not support the video tag.
                     </video>
                   )}
+                </div>
 
-                  {/* Play overlay */}
-                  <div className="flex absolute inset-0 justify-center items-center transition-colors bg-black/30 group-hover:bg-black/20">
-                    <div className="p-4 rounded-full transition-all duration-300 bg-white/90 group-hover:bg-white group-hover:scale-110">
+                <div className="p-6 sm:p-8">
+                  <div className="flex gap-3 items-center mb-2">
+                    {/* Play button on the left */}
+                    <div className="p-2 text-white bg-orange-500 rounded-full transition-all duration-300 hover:bg-orange-600 hover:scale-110">
                       <svg
-                        className="ml-1 w-8 h-8 text-gray-800"
+                        className="ml-0.5 w-4 h-4"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
+                    <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                      {testimonial.name[lang]}
+                    </h3>
                   </div>
-                </div>
-
-                <div className="p-6 sm:p-8">
-                  <h3 className="mb-2 text-xl font-bold text-gray-900 sm:text-2xl">
-                    {testimonial.name[lang]}
-                  </h3>
                   {testimonial.age[lang] && (
                     <p className="text-base text-gray-600 sm:text-lg">
                       {testimonial.age[lang]}
