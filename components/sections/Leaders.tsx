@@ -66,7 +66,7 @@ export default function Leaders({ lang }: LeadersProps) {
                 <img
                   src={testimonial.thumbnail}
                   alt={`${testimonial.name[lang]} testimonial`}
-                  className="w-full h-full object-cover"
+                  className="object-cover w-full h-full"
                 />
               </div>
 
