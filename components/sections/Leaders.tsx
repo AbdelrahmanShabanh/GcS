@@ -17,24 +17,27 @@ export default function Leaders({ lang }: LeadersProps) {
       id: "malek",
       name: { ar: "مالك", en: "Malek" },
       age: { ar: "13 سنة", en: "13 years" },
-      video: "https://drive.google.com/file/d/1rgc7EyfU8yBLqWwPckEdcOwV61JpiUXS/view?usp=sharing",
-      thumbnail: "/image copy 2.png",
+      video:
+        "https://drive.google.com/file/d/1rgc7EyfU8yBLqWwPckEdcOwV61JpiUXS/view?usp=sharing",
+      thumbnail: "/student1.png",
       isExternal: true,
     },
     {
       id: "saja",
       name: { ar: "سجى", en: "Saja" },
       age: { ar: "9 سنوات", en: "9 years" },
-      video: "https://drive.google.com/file/d/1bTfejRVs7lUNPlC4LZBqZSX-niLliKux/view?usp=sharing",
-      thumbnail: "/image copy.png",
+      video:
+        "https://drive.google.com/file/d/1bTfejRVs7lUNPlC4LZBqZSX-niLliKux/view?usp=sharing",
+      thumbnail: "/student2.png",
       isExternal: true,
     },
     {
       id: "parent",
       name: { ar: "ولي أمر", en: "Parent" },
       age: { ar: "", en: "" },
-      video: "https://drive.google.com/file/d/1lFay3XhbgtUkxJUjdrsfZXmsPHsR_iNg/view?usp=sharing",
-      thumbnail: "/image.png",
+      video:
+        "https://drive.google.com/file/d/1lFay3XhbgtUkxJUjdrsfZXmsPHsR_iNg/view?usp=sharing",
+      thumbnail: "/student3.png",
       isExternal: true,
     },
   ];
