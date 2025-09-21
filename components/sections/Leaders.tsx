@@ -17,24 +17,24 @@ export default function Leaders({ lang }: LeadersProps) {
       id: "malek",
       name: { ar: "مالك", en: "Malek" },
       age: { ar: "13 سنة", en: "13 years" },
-      video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder - replace with actual video URL
-      thumbnail: "/student1.png",
+      video: "https://drive.google.com/file/d/1rgc7EyfU8yBLqWwPckEdcOwV61JpiUXS/view?usp=sharing",
+      thumbnail: "/image copy 2.png",
       isExternal: true,
     },
     {
       id: "saja",
       name: { ar: "سجى", en: "Saja" },
       age: { ar: "9 سنوات", en: "9 years" },
-      video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder - replace with actual video URL
-      thumbnail: "/student2.png",
+      video: "https://drive.google.com/file/d/1bTfejRVs7lUNPlC4LZBqZSX-niLliKux/view?usp=sharing",
+      thumbnail: "/image copy.png",
       isExternal: true,
     },
     {
       id: "parent",
       name: { ar: "ولي أمر", en: "Parent" },
       age: { ar: "", en: "" },
-      video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder - replace with actual video URL
-      thumbnail: "/student3.png",
+      video: "https://drive.google.com/file/d/1lFay3XhbgtUkxJUjdrsfZXmsPHsR_iNg/view?usp=sharing",
+      thumbnail: "/image.png",
       isExternal: true,
     },
   ];
