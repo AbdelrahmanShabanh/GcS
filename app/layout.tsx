@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "GCschool | Think . Code . Innovate  ",
+  title: "GC School | Think . Code . Innovate  ",
   description:
-    "GCschool - حصص برمجة مباشرة للأطفال والطلاب من الصف 1 إلى 12. مناهج معتمدة ومشروعات واقعية عبر الإنترنت.",
+    "GC School - حصص برمجة مباشرة للأطفال والطلاب من سن 6 الى 18. مناهج معتمدة ومشروعات واقعية عبر الإنترنت.",
   icons: { icon: "/GC_Ver_White.jpg" },
 };
 

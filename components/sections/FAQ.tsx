@@ -17,8 +17,8 @@ export default function FAQ({ lang }: FAQProps) {
         en: "What are coding classes?",
       },
       answer: {
-        ar: "تعلم حصص البرمجة الطلاب كيفية التواصل بفعالية مع أجهزة الكمبيوتر، مما يسمح لهم بإنشاء وتطوير مجموعة متنوعة من الإبداعات الرقمية مثل البرمجيات والألعاب والبرامج والمواقع والتطبيقات. توفر هذه الحصص عبر الإنترنت رؤى قيمة حول استخدام لغات البرمجة مثل JavaScript و Python، بالإضافة إلى استخدام الأدوات التفاعلية مثل MIT Scratch و Unity و Unreal Engine وغيرها.",
-        en: "Coding classes teach students how to communicate effectively with computers, allowing them to create and develop a variety of digital creations such as software, games, programmes, websites, and applications. These online classes provide valuable insights into the use of programming languages such as JavaScript and Python, as well as the use of interactive tools such as MIT Scratch, Unity, Unreal Engine, and others.",
+        ar: "تعلم حصص البرمجة الطلاب كيفية التواصل بفعالية مع أجهزة الكمبيوتر، مما يسمح لهم بإنشاء وتطوير مجموعة متنوعة من الإبداعات الرقمية مثل البرمجيات والألعاب والبرامج والمواقع والتطبيقات. توفر هذه الحصص عبر الإنترنت رؤى قيمة حول استخدام لغات البرمجة مثل JavaScript و Python، بالإضافة إلى استخدام الأدوات التفاعلية مثل MIT Scratch وغيرها.",
+        en: "Coding classes teach students how to communicate effectively with computers, allowing them to create and develop a variety of digital creations such as software, games, programmes, websites, and applications. These online classes provide valuable insights into the use of programming languages such as JavaScript and Python, as well as the use of interactive tools such as MIT Scratch and others.",
       },
     },
     {
@@ -27,8 +27,8 @@ export default function FAQ({ lang }: FAQProps) {
         en: "What are coding classes for kids?",
       },
       answer: {
-        ar: "تهدف GC SCHOOL إلى تعليم الطلاب من سن 6 إلى 18 المبادئ الأساسية للغات البرمجة، بدءاً من المفاهيم البسيطة مثل بناء الجملة والمتغيرات وهياكل البيانات وما إلى ذلك، والتقدم إلى المفاهيم الأكثر تعقيداً مثل تعدد الأشكال والتزامن وما إلى ذلك، باستخدام لغات وأدوات تفاعلية مثل MIT Scratch و Unity و Unreal Engine وغيرها.",
-        en: "GC SCHOOL aims to teach students aged 6 to 18 the fundamental principles of programming languages, beginning with simple concepts such as syntax, variables, data structures, and so on, and progressing to more complex concepts such as polymorphism, concurrency, and so on, using interactive languages and tools such as MIT Scratch, Unity, Unreal Engine, and others.",
+        ar: "تهدف GC SCHOOL إلى تعليم الطلاب من سن 6 إلى 18 المبادئ الأساسية للغات البرمجة، بدءاً من المفاهيم البسيطة مثل بناء الجملة والمتغيرات وهياكل البيانات وما إلى ذلك، والتقدم إلى المفاهيم الأكثر تعقيداً مثل تعدد الأشكال والتزامن وما إلى ذلك، باستخدام لغات وأدوات تفاعلية مثل MIT Scratch وغيرها.",
+        en: "GC SCHOOL aims to teach students aged 6 to 18 the fundamental principles of programming languages, beginning with simple concepts such as syntax, variables, data structures, and so on, and progressing to more complex concepts such as polymorphism, concurrency, and so on, using interactive languages and tools such as MIT Scratch and others.",
       },
     },
     {
@@ -37,8 +37,8 @@ export default function FAQ({ lang }: FAQProps) {
         en: "How to explain coding to a child?",
       },
       answer: {
-        ar: "من الأفضل تقديم البرمجة للأطفال من خلال أمثلة عملية ومألوفة مثل الألعاب والرسوم المتحركة والموسيقى. تركز حصصنا على تعليم الأطفال كيفية البرمجة من خلال إنشاء ألعاب بسيطة أو استخدام شخصيات الرسوم المتحركة. هذه بعض الأمثلة: البرمجة للرسوم المتحركة وسرد القصص، وبرمجة الفن والموسيقى، وبرمجة منطق الألعاب.",
-        en: "It is best to introduce coding to children through relatable, practical examples such as games, cartoons, and music. Our classes focus on teaching children how to code through the creation of simple games or the use of cartoon characters. These are some examples: Coding for Animation and Storytelling, Art & Music Coding and Game Logical Programming.",
+        ar: "من الأفضل تقديم البرمجة للأطفال من خلال أمثلة عملية ومألوفة مثل الألعاب والرسوم المتحركة والموسيقى. تركز حصصنا على تعليم الأطفال كيفية البرمجة من خلال إنشاء ألعاب بسيطة أو استخدام شخصيات الرسوم المتحركة.",
+        en: "It is best to introduce coding to children through relatable, practical examples such as games, cartoons, and music. Our classes focus on teaching children how to code through the creation of simple games or the use of cartoon characters.",
       },
     },
     {

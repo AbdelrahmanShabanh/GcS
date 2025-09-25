@@ -4,8 +4,8 @@ import Image from "next/image";
 
 // كومبوننت لماذا نحن
 export default function Why({ lang }: { lang: string }) {
-  const heading = lang === "ar" ? "ليه GCschool؟" : "Why GCschool?";
-  const certAlt = lang === "ar" ? "شهادة GCschool" : "GCschool Certificate";
+  const heading = lang === "ar" ? "ليه GC School؟" : "Why GC School?";
+  const certAlt = lang === "ar" ? "شهادة GC School" : "GC School Certificate";
 
   const items =
     lang === "ar"
@@ -18,11 +18,11 @@ export default function Why({ lang }: { lang: string }) {
           {
             icon: "video",
             h: "أونلاين مباشر 1 الى 1",
-            p: "حصص شخصية خاصه مع مدربين خبرة.",
+            p: "حصص شخصية خاصة مع مدربين خبرة.",
           },
           {
             icon: "teacher",
-            h: " مدربين نخبة خبره في مجال التعليم عن بعد",
+            h: " مدربين نخبة خبرة في مجال التعليم عن بعد",
             p: "مدربون مؤهلون.",
           },
           {

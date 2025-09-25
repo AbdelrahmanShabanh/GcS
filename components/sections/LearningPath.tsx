@@ -53,7 +53,7 @@ export default function LearningPath({ lang }: LearningPathProps) {
         d: { ar: "6 حصص", en: "6 sessions" },
       },
       {
-        img: "images (1).png",
+        img: "/images (1).png",
         t: "EduBlocks (Python)",
         d: { ar: "6 حصص", en: "6 sessions" },
       },
@@ -97,7 +97,7 @@ export default function LearningPath({ lang }: LearningPathProps) {
       id="learning-path"
     >
       <div className="container px-4 sm:px-6 lg:px-8">
-        <h2 className="section-title text-2xl sm:text-3xl lg:text-4xl mb-6 sm:mb-8">
+        <h2 className="mb-6 text-2xl section-title sm:text-3xl lg:text-4xl sm:mb-8">
           {content[lang].title}
         </h2>
         <div className="flex gap-2 sm:gap-2.5 flex-wrap justify-center mb-5 sm:mb-6">
@@ -121,26 +121,26 @@ export default function LearningPath({ lang }: LearningPathProps) {
           })}
         </div>
         {cards.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6">
             {cards.map((c) => (
               <div
-                className="card bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200"
+                className="bg-white rounded-xl shadow-sm transition-shadow duration-200 card hover:shadow-md"
                 key={c.t}
               >
-                <div className="relative w-full h-40 sm:h-48 overflow-hidden rounded-t-xl">
+                <div className="overflow-hidden relative w-full h-40 rounded-t-xl sm:h-48">
                   <Image
                     src={c.img}
                     alt={c.t}
                     width={280}
                     height={200}
-                    className="w-full h-full object-contain p-2"
+                    className="object-contain p-2 w-full h-full"
                   />
                 </div>
                 <div className="p-3 sm:p-4">
-                  <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1 sm:mb-2">
+                  <h4 className="mb-1 text-sm font-semibold text-gray-900 sm:text-base sm:mb-2">
                     {c.t}
                   </h4>
-                  <p className="text-xs sm:text-sm text-gray-500">
+                  <p className="text-xs text-gray-500 sm:text-sm">
                     {c.d[lang]}
                   </p>
                 </div>
@@ -148,7 +148,7 @@ export default function LearningPath({ lang }: LearningPathProps) {
             ))}
           </div>
         ) : (
-          <div className="py-8 sm:py-12 text-center text-gray-600">
+          <div className="py-8 text-center text-gray-600 sm:py-12">
             <p className="text-sm sm:text-base">
               {content[lang].comingSoon}{" "}
               {tabs[lang][tabs.ar.indexOf(activeTab)]}{" "}
