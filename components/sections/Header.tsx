@@ -107,7 +107,35 @@ export default function Header({ lang, setLang }: HeaderProps) {
           ))}
         </nav>
 
-        <div className="flex gap-2.5 items-center">
+        <div className="flex gap-2 items-center">
+          {/* Mobile buttons - visible on small screens */}
+          <div className="flex gap-1.5 items-center md:hidden">
+            <button
+              className="bg-white/10 text-white px-2 py-1 text-xs rounded cursor-pointer transition-colors hover:bg-white/20"
+              onClick={() => setLang(lang === "ar" ? "en" : "ar")}
+            >
+              {lang === "ar" ? "EN" : "عربي"}
+            </button>
+
+            {/* Mobile Authentication */}
+            {user ? (
+              <button
+                onClick={logout}
+                className="bg-red-500/20 text-red-200 px-2 py-1 text-xs rounded cursor-pointer transition-colors hover:bg-red-500/30"
+              >
+                {lang === "ar" ? "خروج" : "Logout"}
+              </button>
+            ) : (
+              <button
+                onClick={() => setAuthModalOpen(true)}
+                className="bg-orange-500 text-white px-2 py-1 text-xs rounded font-semibold hover:bg-orange-600 transition-colors"
+              >
+                {lang === "ar" ? "سجل" : "Register"}
+              </button>
+            )}
+          </div>
+
+          {/* Desktop buttons - hidden on small screens */}
           <button
             className="hidden md:inline-flex bg-white/10 text-white px-3 py-1.5 rounded-md cursor-pointer transition-colors hover:bg-white/20"
             onClick={() => setLang(lang === "ar" ? "en" : "ar")}
@@ -115,7 +143,7 @@ export default function Header({ lang, setLang }: HeaderProps) {
             {lang === "ar" ? "EN" : "عربي"}
           </button>
 
-          {/* User Authentication */}
+          {/* Desktop User Authentication */}
           {user ? (
             <div className="hidden md:flex items-center gap-2">
               <button
@@ -172,13 +200,13 @@ export default function Header({ lang, setLang }: HeaderProps) {
           menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="container py-3">
-          <nav className="flex flex-col gap-3">
+        <div className="container py-2">
+          <nav className="flex flex-col gap-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block px-2 py-2 rounded-md transition-colors duration-200 text-white/90 hover:text-white hover:bg-white/10 flex items-center gap-2"
+                className="px-2 py-2 rounded-md transition-colors duration-200 text-white/90 hover:text-white hover:bg-white/10 flex items-center gap-2"
                 onClick={() => setMenuOpen(false)}
               >
                 {item.icon ? (
@@ -198,44 +226,6 @@ export default function Header({ lang, setLang }: HeaderProps) {
               </Link>
             ))}
           </nav>
-          <div className="flex flex-col gap-2 mt-3">
-            <button
-              className="inline-flex bg-white/10 text-white px-3 py-1.5 rounded-md cursor-pointer transition-colors hover:bg-white/20"
-              onClick={() => {
-                setLang(lang === "ar" ? "en" : "ar");
-                setMenuOpen(false);
-              }}
-            >
-              {lang === "ar" ? "EN" : "عربي"}
-            </button>
-
-            {/* Mobile Authentication */}
-            {user ? (
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    logout();
-                    setMenuOpen(false);
-                  }}
-                  className="bg-red-500/20 text-red-200 px-3 py-1.5 rounded-md cursor-pointer transition-colors hover:bg-red-500/30"
-                >
-                  {lang === "ar" ? "تسجيل الخروج" : "Logout"}
-                </button>
-              </div>
-            ) : null}
-
-            <div>
-              <button
-                onClick={() => {
-                  setAuthModalOpen(true);
-                  setMenuOpen(false);
-                }}
-                className="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-colors w-full"
-              >
-                {lang === "ar" ? "سجل الآن" : "Register Now"}
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
