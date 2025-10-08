@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { ApiClient } from "@/utils/api";
 
 // كومبوننت المشاريع
 interface ProjectsProps {
@@ -8,7 +10,7 @@ interface ProjectsProps {
 }
 
 export default function Projects({ lang }: ProjectsProps) {
-  const items = [
+  const [items, setItems] = useState([
     {
       img: "/377-3774504_scratch-logo-hd-png-download.png",
       t: {
@@ -53,7 +55,30 @@ export default function Projects({ lang }: ProjectsProps) {
         en: "Create your game and challenge your friends.",
       },
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const response = await ApiClient.getProjects();
+        if (response.success && response.data) {
+          const transformedProjects = response.data.map((project: any) => ({
+            img: project.image,
+            t: {
+              ar: project.name,
+              en: project.name,
+            },
+            d: project.description,
+          }));
+          setItems(transformedProjects);
+        }
+      } catch (error) {
+        console.error("Error loading projects:", error);
+      }
+    };
+
+    loadProjects();
+  }, []);
 
   const content = {
     ar: {
@@ -77,17 +102,30 @@ export default function Projects({ lang }: ProjectsProps) {
         >
           {items.map((item, index) => (
             <div
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group"
               key={index}
             >
-              <div className="relative w-full h-48 bg-gray-100 flex items-center justify-center">
-                <Image
-                  src={item.img}
-                  alt={item.t[lang]}
-                  width={200}
-                  height={200}
-                  className="w-32 h-32 object-contain"
-                />
+              <div className="relative w-full h-48 bg-gray-100 overflow-hidden">
+                {item.img.includes("data:image/gif") ||
+                item.img.endsWith(".gif") ? (
+                  <img
+                    src={item.img}
+                    alt={item.t[lang]}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onMouseEnter={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.src = img.src; // Restart the GIF
+                    }}
+                  />
+                ) : (
+                  <Image
+                    src={item.img}
+                    alt={item.t[lang]}
+                    width={400}
+                    height={200}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                )}
               </div>
               <div className="p-4 sm:p-6">
                 <h4 className="mb-2 text-lg font-semibold text-gray-900">

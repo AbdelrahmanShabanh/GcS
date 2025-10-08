@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ApiClient } from "@/utils/api";
 
 // كومبوننت الأسئلة الشائعة
 interface FAQProps {
@@ -9,8 +10,7 @@ interface FAQProps {
 
 export default function FAQ({ lang }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const faqs = [
+  const [faqs, setFaqs] = useState([
     {
       question: {
         ar: "ما هي حصص البرمجة؟",
@@ -111,7 +111,22 @@ export default function FAQ({ lang }: FAQProps) {
         en: "Absolutely, game development is an essential component of coding. In fact, it's one of the most engaging and impactful ways to introduce children to coding. As they embark on the adventure of game development, your child will not only learn technical skills but will also develop important talents such as idea generating, problem-solving, and execution. This method will boost their creativity, improve spatial reasoning, and develop logical thinking, among other benefits.",
       },
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const loadFAQs = async () => {
+      try {
+        const response = await ApiClient.getFAQs();
+        if (response.success && response.data) {
+          setFaqs(response.data);
+        }
+      } catch (error) {
+        console.error("Error loading FAQs:", error);
+      }
+    };
+
+    loadFAQs();
+  }, []);
 
   const content = {
     ar: {

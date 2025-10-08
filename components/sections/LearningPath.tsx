@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ApiClient } from "@/utils/api";
 
 // كومبوننت مسار التعلم
 interface LearningPathProps {
@@ -9,16 +10,9 @@ interface LearningPathProps {
 }
 
 export default function LearningPath({ lang }: LearningPathProps) {
-  const tabs = {
-    ar: ["المستوى الاول", "المستوى الثاني", "المستوى الثالث"],
-    en: ["Level 1", "Level 2", "Level 3"],
-  };
-
-  // المحتوى لكل مستوى (يمكنك تزويدنا بمحتوى المستوى الثاني/الثالث لاحقاً)
-  const levelToCards: Record<
-    string,
-    { img: string; t: string; d: { ar: string; en: string } }[]
-  > = {
+  const [levelToCards, setLevelToCards] = useState<
+    Record<string, { img: string; t: string; d: { ar: string; en: string } }[]>
+  >({
     "المستوى الاول": [
       {
         img: "/Code.org_logo.svg.png",
@@ -75,10 +69,30 @@ export default function LearningPath({ lang }: LearningPathProps) {
         d: { ar: "18 حصه", en: "18 sessions" },
       },
     ],
+  });
+
+  const tabs = {
+    ar: ["المستوى الاول", "المستوى الثاني", "المستوى الثالث"],
+    en: ["Level 1", "Level 2", "Level 3"],
   };
 
   const [activeTab, setActiveTab] = useState<string>(tabs.ar[0]);
   const cards = levelToCards[activeTab] ?? [];
+
+  useEffect(() => {
+    const loadCourses = async () => {
+      try {
+        const response = await ApiClient.getCourses();
+        if (response.success && response.data) {
+          setLevelToCards(response.data);
+        }
+      } catch (error) {
+        console.error("Error loading courses:", error);
+      }
+    };
+
+    loadCourses();
+  }, []);
 
   const content = {
     ar: {

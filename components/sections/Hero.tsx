@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Button from "../ui/Button";
+import { useState, useEffect } from "react";
+import { ApiClient } from "@/utils/api";
 
 interface HeroProps {
   lang: string;
@@ -9,6 +11,23 @@ interface HeroProps {
 
 // كومبوننت قسم الهيرو
 export default function Hero({ lang }: HeroProps) {
+  const [heroImage, setHeroImage] = useState("/age-range.png");
+
+  useEffect(() => {
+    const loadHeroData = async () => {
+      try {
+        const response = await ApiClient.getHeroData();
+        if (response.success && response.data) {
+          setHeroImage(response.data.image);
+        }
+      } catch (error) {
+        console.error("Error loading hero data:", error);
+      }
+    };
+
+    loadHeroData();
+  }, []);
+
   const content =
     lang === "ar"
       ? {
@@ -67,7 +86,15 @@ export default function Hero({ lang }: HeroProps) {
           </h1>
           {content.subtitle && (
             <h2 className="mb-6 text-xl font-semibold text-orange-500 sm:text-2xl lg:text-3xl">
-              {content.subtitle}
+              {lang === "ar" ? (
+                <>
+                  فكر . <span className="text-teal-500">برمج</span> . ابتكر
+                </>
+              ) : (
+                <>
+                  Think . <span className="text-teal-500">Code</span> . Innovate
+                </>
+              )}
             </h2>
           )}
           <ul className="grid gap-2 p-0 mb-5 list-none text-gray-700 sm:text-lg">
@@ -90,7 +117,7 @@ export default function Hero({ lang }: HeroProps) {
         </div>
         <div className="relative order-first lg:order-none">
           <Image
-            src="/age-range.png"
+            src={heroImage}
             alt="GCschool students"
             width={640}
             height={520}

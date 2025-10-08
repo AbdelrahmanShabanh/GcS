@@ -1,3 +1,9 @@
+
+MONGODB_URI=mongodb+srv://bodysh2019:WIj44F1gI6miqerD@myou.j6sr5u0.mongodb.net/gcschool?retryWrites=true&w=majority&appName=Myou
+JWT_SECRET=520d655206da0b6dc5e428e2c02e0f0727fa4fcc40c1d4160dd71755b734cd6ec5203bf1495281af638ec8fed9318996eb1496da62415ffd0dc9f3db0cdae1c6
+NODE_ENV=development
+
+
 # Dependencies
 node_modules/
 npm-debug.log*

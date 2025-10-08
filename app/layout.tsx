@@ -7,11 +7,14 @@ export const metadata = {
 
 import "./globals.css";
 import type { ReactNode } from "react";
+import { AuthProvider } from "../contexts/AuthContext";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ar" dir="rtl">
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

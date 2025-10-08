@@ -45,7 +45,15 @@ export default function Footer({ lang }: FooterProps) {
           </Link>
           <div className="space-y-2">
             <h3 className="text-lg font-semibold text-white">
-              {content[lang].slogan}
+              {lang === "ar" ? (
+                <>
+                  فكر . <span className="text-teal-500">برمج</span> . ابتكر
+                </>
+              ) : (
+                <>
+                  Think . <span className="text-teal-500">Code</span> . Innovate
+                </>
+              )}
             </h3>
             <p className="text-sm text-white/90">{content[lang].tagline}</p>
           </div>

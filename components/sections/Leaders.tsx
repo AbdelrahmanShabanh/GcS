@@ -1,38 +1,54 @@
 "use client";
 
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { ApiClient } from "@/utils/api";
 
 interface LeadersProps {
-  lang: string;
+  lang: "ar" | "en";
 }
 
 export default function Leaders({ lang }: LeadersProps) {
-  const testimonials = [
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState("");
+  const [testimonials, setTestimonials] = useState([
     {
       id: "malek",
       name: { ar: "مالك", en: "Malek" },
       age: { ar: "13 سنة", en: "13 years" },
-      video:
-        "https://drive.google.com/file/d/1rgc7EyfU8yBLqWwPckEdcOwV61JpiUXS/view?usp=sharing",
+      video: "https://youtube.com/shorts/OnS7OhrMjPs?si=Wj2DDvb7l5tMqbNN",
       thumbnail: "/image_copy_2.png",
     },
     {
       id: "saja",
       name: { ar: "سجى", en: "Saja" },
       age: { ar: "9 سنوات", en: "9 years" },
-      video:
-        "https://drive.google.com/file/d/1bTfejRVs7lUNPlC4LZBqZSX-niLliKux/view?usp=sharing",
+      video: "https://youtube.com/shorts/Cg6HfDH6sbU?si=MFqFzFVDcfA2i_tb",
       thumbnail: "/image_copy.png",
     },
     {
       id: "parent",
       name: { ar: "ولي أمر", en: "Parent" },
       age: { ar: "", en: "" },
-      video:
-        "https://drive.google.com/file/d/1lFay3XhbgtUkxJUjdrsfZXmsPHsR_iNg/view?usp=sharing",
+      video: "https://youtube.com/shorts/OHEKjwZjdpY?si=3EBksw_XHDSX2AK9",
       thumbnail: "/image.png",
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const loadLeaders = async () => {
+      try {
+        const response = await ApiClient.getLeaders();
+        if (response.success && response.data) {
+          setTestimonials(response.data);
+        }
+      } catch (error) {
+        console.error("Error loading leaders:", error);
+      }
+    };
+
+    loadLeaders();
+  }, []);
 
   const content = {
     ar: {
@@ -44,7 +60,19 @@ export default function Leaders({ lang }: LeadersProps) {
   };
 
   const handleVideoClick = (videoUrl: string) => {
-    window.open(videoUrl, "_blank");
+    setSelectedVideo(videoUrl);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedVideo("");
+  };
+
+  // Convert YouTube Shorts URL to embed URL
+  const getEmbedUrl = (url: string) => {
+    const videoId = url.split("/shorts/")[1]?.split("?")[0];
+    return `https://www.youtube.com/embed/${videoId}`;
   };
 
   return (
@@ -97,6 +125,45 @@ export default function Leaders({ lang }: LeadersProps) {
           ))}
         </div>
       </div>
+
+      {/* YouTube Modal */}
+      {isModalOpen && (
+        <div className="flex fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-75">
+          <div className="relative mx-4 w-full max-w-4xl">
+            {/* Close button */}
+            <button
+              onClick={closeModal}
+              className="absolute right-0 -top-12 text-white transition-colors hover:text-gray-300"
+            >
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* YouTube iframe */}
+            <div className="relative w-full h-0 pb-[56.25%] bg-black rounded-lg overflow-hidden">
+              <iframe
+                src={getEmbedUrl(selectedVideo)}
+                title="YouTube video"
+                className="absolute top-0 left-0 w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
