@@ -7,7 +7,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { ApiClient } from "@/utils/api";
+import { ApiClient } from "../utils/api";
 
 interface User {
   email: string;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ApiClient } from "@/utils/api";
+import { ApiClient } from "../../utils/api";
 
 interface FAQ {
   id: string;

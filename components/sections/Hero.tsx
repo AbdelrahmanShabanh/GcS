@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Button from "../ui/Button";
 import { useState, useEffect } from "react";
-import { ApiClient } from "@/utils/api";
+import { ApiClient } from "../../utils/api";
 
 interface HeroProps {
   lang: string;
