@@ -99,13 +99,13 @@ export default function LeadersAdmin() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="mb-2 text-xl font-semibold text-gray-900">
           Leaders Management
         </h2>
         <p className="text-gray-600">
           Manage student testimonials and parent feedback videos.
         </p>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="mt-1 text-sm text-gray-500">
           Note: The original 3 videos (Malek, Saja, Parent) are placeholders and
           cannot be deleted, only edited.
         </p>
@@ -119,24 +119,24 @@ export default function LeadersAdmin() {
           </h3>
           <button
             onClick={() => setShowAddForm(true)}
-            className="bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition-colors"
+            className="px-4 py-2 text-white bg-teal-500 rounded-md transition-colors hover:bg-teal-600"
           >
             Add Leader
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {leaders.map((leader) => (
-            <div key={leader.id} className="border rounded-lg p-4 bg-gray-50">
+            <div key={leader.id} className="p-4 bg-gray-50 rounded-lg border">
               <img
                 src={leader.thumbnail}
                 alt={`${leader.name.en} testimonial`}
-                className="w-full h-32 object-cover mb-3 rounded"
+                className="object-cover mb-3 w-full h-32 rounded"
               />
-              <h4 className="font-medium text-gray-900 mb-1">
+              <h4 className="mb-1 font-medium text-gray-900">
                 {leader.name.en} ({leader.name.ar})
               </h4>
-              <p className="text-sm text-gray-600 mb-2">
+              <p className="mb-2 text-sm text-gray-600">
                 Age: {leader.age.en} ({leader.age.ar})
               </p>
               <div className="mb-3">
@@ -152,7 +152,7 @@ export default function LeadersAdmin() {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEditLeader(leader)}
-                  className="text-blue-600 hover:text-blue-800 text-sm"
+                  className="text-sm text-blue-600 hover:text-blue-800"
                 >
                   Edit
                 </button>
@@ -195,7 +195,7 @@ export default function LeadersAdmin() {
         <button
           onClick={handleSave}
           disabled={isLoading}
-          className="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-6 py-2 text-white bg-teal-500 rounded-md transition-colors hover:bg-teal-600 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? "Saving..." : "Save Changes"}
         </button>
@@ -248,15 +248,15 @@ function LeaderForm({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-        <h3 className="text-lg font-semibold mb-4">
+    <div className="flex fixed inset-0 z-50 justify-center items-center bg-black bg-opacity-50">
+      <div className="p-6 mx-4 w-full max-w-md bg-white rounded-lg">
+        <h3 className="mb-4 text-lg font-semibold">
           {leader ? "Edit Leader" : "Add New Leader"}
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               Name (English)
             </label>
             <input
@@ -269,12 +269,12 @@ function LeaderForm({
                 })
               }
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="px-3 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               Name (Arabic)
             </label>
             <input
@@ -287,12 +287,12 @@ function LeaderForm({
                 })
               }
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="px-3 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               Age (English)
             </label>
             <input
@@ -304,12 +304,12 @@ function LeaderForm({
                   age: { ...formData.age, en: e.target.value },
                 })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="px-3 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               Age (Arabic)
             </label>
             <input
@@ -321,12 +321,12 @@ function LeaderForm({
                   age: { ...formData.age, ar: e.target.value },
                 })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="px-3 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               YouTube Video URL
             </label>
             <input
@@ -337,12 +337,12 @@ function LeaderForm({
               }
               required
               placeholder="https://youtube.com/shorts/..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="px-3 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-sm font-medium text-gray-700">
               Thumbnail Image
             </label>
             <input
@@ -350,14 +350,14 @@ function LeaderForm({
               accept="image/*"
               onChange={handleThumbnailChange}
               required={!leader}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="px-3 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             {formData.thumbnail && (
               <div className="mt-2">
                 <img
                   src={formData.thumbnail}
                   alt="Preview"
-                  className="w-20 h-20 object-cover rounded-md border"
+                  className="object-cover w-20 h-20 rounded-md border"
                 />
               </div>
             )}
@@ -373,7 +373,7 @@ function LeaderForm({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600"
+              className="px-4 py-2 text-white bg-teal-500 rounded-md hover:bg-teal-600"
             >
               {leader ? "Update" : "Add"} Leader
             </button>

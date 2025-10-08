@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "init-db": "tsx scripts/init-db.ts"
+    "init-db": "tsx scripts/init-db.ts",
+    "init-production-db": "node scripts/init-production-db.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
