@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Loader from "../components/ui/Loader";
+import { useAppLoading } from "../hooks/useAppLoading";
 
 // Import all components
 // import Topbar from "../components/sections/Topbar";
@@ -19,6 +21,7 @@ import Footer from "../components/sections/Footer";
 // الصفحة الرئيسية بتجمع كل الأقسام
 export default function HomePage() {
   const [lang, setLang] = useState("ar"); // Arabic as default
+  const { isLoading, loadingProgress } = useAppLoading();
 
   useEffect(() => {
     // Update document direction and language based on state
@@ -27,19 +30,22 @@ export default function HomePage() {
   }, [lang]);
 
   return (
-    <main className={lang === "ar" ? "rtl" : "ltr"}>
-      {/* <Topbar /> */}
-      <Header lang={lang} setLang={setLang} />
-      <Hero lang={lang} />
-      {/* <Tools /> */}
-      <Why lang={lang} />
-      <LearningPath lang={lang} />
-      <Projects lang={lang} />
-      <Pricing lang={lang} />
-      <Leaders lang={lang} />
-      <FAQ lang={lang} />
-      <Certificate lang={lang} />
-      <Footer lang={lang} />
-    </main>
+    <>
+      <Loader isLoading={isLoading} progress={loadingProgress} />
+      <main className={lang === "ar" ? "rtl" : "ltr"}>
+        {/* <Topbar /> */}
+        <Header lang={lang} setLang={setLang} />
+        <Hero lang={lang} />
+        {/* <Tools /> */}
+        <Why lang={lang} />
+        <LearningPath lang={lang} />
+        <Projects lang={lang} />
+        <Pricing lang={lang} />
+        <Leaders lang={lang} />
+        <FAQ lang={lang} />
+        <Certificate lang={lang} />
+        <Footer lang={lang} />
+      </main>
+    </>
   );
 }
