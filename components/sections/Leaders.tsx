@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ApiClient } from "../../utils/api";
 
 interface LeadersProps {
@@ -34,6 +34,7 @@ export default function Leaders({ lang }: LeadersProps) {
       thumbnail: "/image.png",
     },
   ]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const loadLeaders = async () => {
@@ -49,6 +50,24 @@ export default function Leaders({ lang }: LeadersProps) {
 
     loadLeaders();
   }, []);
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: -320, // Scroll by one card width (320px)
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: 320, // Scroll by one card width (320px)
+        behavior: "smooth",
+      });
+    }
+  };
 
   const content = {
     ar: {
@@ -82,47 +101,102 @@ export default function Leaders({ lang }: LeadersProps) {
           {content[lang].title}
         </h2>
 
-        <div className="grid grid-cols-1 gap-8 mx-auto max-w-7xl sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="overflow-hidden bg-white rounded-2xl shadow-lg transition-all duration-300 transform cursor-pointer group hover:shadow-xl hover:-translate-y-1"
-              onClick={() => handleVideoClick(testimonial.video)}
-            >
-              {/* Image */}
-              <div className="relative w-full h-48 bg-gray-100">
-                <img
-                  src={testimonial.thumbnail}
-                  alt={`${testimonial.name[lang]} testimonial`}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex gap-3 items-center mb-2">
-                  {/* Play button on the left */}
-                  <div className="p-2 text-white bg-orange-500 rounded-full transition-all duration-300 hover:bg-orange-600 hover:scale-110">
-                    <svg
-                      className="ml-0.5 w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">
-                    {testimonial.name[lang]}
-                  </h3>
+        <div className="relative">
+          {/* Horizontal scroll container */}
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-8 overflow-x-auto pb-4 scrollbar-hide"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={testimonial.id}
+                className="overflow-hidden bg-white rounded-2xl shadow-lg transition-all duration-300 transform cursor-pointer group hover:shadow-xl hover:-translate-y-1 flex-shrink-0 w-80"
+                onClick={() => handleVideoClick(testimonial.video)}
+              >
+                {/* Image */}
+                <div className="relative w-full h-48 bg-gray-100">
+                  <img
+                    src={testimonial.thumbnail}
+                    alt={`${testimonial.name[lang]} testimonial`}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
-                {testimonial.age[lang] && (
-                  <p className="text-base text-gray-600">
-                    {testimonial.age[lang]}
-                  </p>
-                )}
+
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex gap-3 items-center mb-2">
+                    {/* Play button on the left */}
+                    <div className="p-2 text-white bg-orange-500 rounded-full transition-all duration-300 hover:bg-orange-600 hover:scale-110">
+                      <svg
+                        className="ml-0.5 w-4 h-4"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">
+                      {testimonial.name[lang]}
+                    </h3>
+                  </div>
+                  {testimonial.age[lang] && (
+                    <p className="text-base text-gray-600">
+                      {testimonial.age[lang]}
+                    </p>
+                  )}
+                </div>
               </div>
+            ))}
+          </div>
+
+          {/* Left/Right arrows in orange circle */}
+          {testimonials.length > 1 && (
+            <div className="flex justify-between items-center mt-2 px-4">
+              {/* Left arrow */}
+              <button
+                onClick={scrollLeft}
+                className="w-6 h-6 bg-orange-400 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors cursor-pointer"
+              >
+                <svg
+                  className="w-3 h-3 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+              {/* Right arrow */}
+              <button
+                onClick={scrollRight}
+                className="w-6 h-6 bg-orange-400 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors cursor-pointer"
+              >
+                <svg
+                  className="w-3 h-3 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
             </div>
-          ))}
+          )}
         </div>
       </div>
 

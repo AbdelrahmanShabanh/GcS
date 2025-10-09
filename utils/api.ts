@@ -100,5 +100,17 @@ export class ApiClient {
       body: JSON.stringify({ faqs }),
     });
   }
+
+  // Pricing API
+  static async getPricing() {
+    return this.request("/pricing");
+  }
+
+  static async updatePricing(pricing: any) {
+    return this.request("/pricing", {
+      method: "POST",
+      body: JSON.stringify({ pricing }),
+    });
+  }
 }
 

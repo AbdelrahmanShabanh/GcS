@@ -8,6 +8,7 @@ interface Course {
   img: string;
   t: string;
   d: { ar: string; en: string };
+  order?: number;
 }
 
 interface LevelData {
@@ -221,6 +222,7 @@ function CourseForm({
       ar: course?.d.ar || "",
       en: course?.d.en || "",
     },
+    order: course?.order || 1,
   });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -262,6 +264,22 @@ function CourseForm({
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Order (Position)
+            </label>
+            <input
+              type="number"
+              min="1"
+              value={formData.order}
+              onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 1 })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Lower numbers appear first (1 = first position)
+            </p>
           </div>
 
           <div>

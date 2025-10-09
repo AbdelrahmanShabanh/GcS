@@ -8,8 +8,15 @@ import LearningPathAdmin from "../../components/admin/LearningPathAdmin";
 import ProjectsAdmin from "../../components/admin/ProjectsAdmin";
 import LeadersAdmin from "../../components/admin/LeadersAdmin";
 import FAQAdmin from "../../components/admin/FAQAdmin";
+import PricingAdmin from "../../components/admin/PricingAdmin";
 
-type AdminSection = "hero" | "learning-path" | "projects" | "leaders" | "faq";
+type AdminSection =
+  | "hero"
+  | "learning-path"
+  | "projects"
+  | "leaders"
+  | "faq"
+  | "pricing";
 
 export default function AdminDashboard() {
   const { user, isLoading } = useAuth();
@@ -24,7 +31,7 @@ export default function AdminDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex justify-center items-center min-h-screen">
         <div className="text-lg">Loading...</div>
       </div>
     );
@@ -40,6 +47,7 @@ export default function AdminDashboard() {
     { id: "projects" as AdminSection, name: "Projects", icon: "🚀" },
     { id: "leaders" as AdminSection, name: "Leaders", icon: "👥" },
     { id: "faq" as AdminSection, name: "FAQ", icon: "❓" },
+    { id: "pricing" as AdminSection, name: "Pricing", icon: "💰" },
   ];
 
   const renderActiveSection = () => {
@@ -54,6 +62,8 @@ export default function AdminDashboard() {
         return <LeadersAdmin />;
       case "faq":
         return <FAQAdmin />;
+      case "pricing":
+        return <PricingAdmin />;
       default:
         return <HeroAdmin />;
     }
@@ -62,8 +72,8 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="bg-white border-b shadow-sm">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">
@@ -73,13 +83,13 @@ export default function AdminDashboard() {
                 Manage your website content
               </p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex gap-4 items-center">
               <span className="text-sm text-gray-600">
                 Welcome, {user.email}
               </span>
               <button
                 onClick={() => router.push("/")}
-                className="bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition-colors"
+                className="px-4 py-2 text-white bg-teal-500 rounded-md transition-colors hover:bg-teal-600"
               >
                 View Site
               </button>
@@ -88,12 +98,12 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <nav className="bg-white rounded-lg shadow-sm p-4">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <nav className="p-4 bg-white rounded-lg shadow-sm">
+              <h2 className="mb-4 text-lg font-semibold text-gray-900">
                 Sections
               </h2>
               <ul className="space-y-2">
@@ -118,7 +128,7 @@ export default function AdminDashboard() {
 
           {/* Main Content */}
           <div className="lg:col-span-3">
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="p-6 bg-white rounded-lg shadow-sm">
               {renderActiveSection()}
             </div>
           </div>
@@ -127,4 +137,3 @@ export default function AdminDashboard() {
     </div>
   );
 }
-

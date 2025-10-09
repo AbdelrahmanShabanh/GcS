@@ -1,13 +1,17 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { ApiClient } from "../../utils/api";
+
 // كومبوننت الأسعار
 interface PricingProps {
   lang: string;
 }
 
 export default function Pricing({ lang }: PricingProps) {
-  const plans = [
+  const [plans, setPlans] = useState([
     {
+      id: "beginner",
       t: { ar: "مبتدأ", en: "Beginner" },
       p: "4800",
       period: { ar: "ربع سنوي", en: "Quarterly" },
@@ -29,6 +33,7 @@ export default function Pricing({ lang }: PricingProps) {
       },
     },
     {
+      id: "expert",
       t: { ar: "احترافي", en: "Expert" },
       p: "16800",
       period: { ar: "سنوي", en: "Annually" },
@@ -51,6 +56,7 @@ export default function Pricing({ lang }: PricingProps) {
       best: true,
     },
     {
+      id: "advanced",
       t: { ar: "متقدم ", en: "Advanced" },
       p: "9120",
       period: { ar: "نصف سنوي", en: "Biannual" },
@@ -71,7 +77,42 @@ export default function Pricing({ lang }: PricingProps) {
         ],
       },
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const loadPricing = async () => {
+      try {
+        const response = await ApiClient.getPricing();
+        console.log("Pricing API response:", response); // Debug log
+        if (response.success && response.data && response.data.length > 0) {
+          const transformedPlans = response.data.map((plan: any) => ({
+            id: plan.id,
+            t: plan.title,
+            p: plan.price,
+            period: plan.period,
+            f: plan.features,
+            best: plan.id === "expert", // Always mark expert plan as best for design
+          }));
+
+          console.log("Transformed plans:", transformedPlans); // Debug log
+          setPlans(transformedPlans);
+        } else {
+          console.log("No pricing data from API, using defaults"); // Debug log
+          // Ensure default plans have correct design
+          setPlans((prevPlans) =>
+            prevPlans.map((plan) => ({
+              ...plan,
+              best: plan.id === "expert",
+            }))
+          );
+        }
+      } catch (error) {
+        console.error("Error loading pricing:", error);
+      }
+    };
+
+    loadPricing();
+  }, []);
 
   const content = {
     ar: {

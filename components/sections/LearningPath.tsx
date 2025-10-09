@@ -12,64 +12,7 @@ interface LearningPathProps {
 export default function LearningPath({ lang }: LearningPathProps) {
   const [levelToCards, setLevelToCards] = useState<
     Record<string, { img: string; t: string; d: { ar: string; en: string } }[]>
-  >({
-    "المستوى الاول": [
-      {
-        img: "/Code.org_logo.svg.png",
-        t: "Code.org Pre",
-        d: { ar: "6 حصص", en: "6 sessions" },
-      },
-      {
-        img: "/download.jpeg",
-        t: "Scratch Jr",
-        d: { ar: "6 حصص", en: "6 sessions" },
-      },
-      {
-        img: "/codeorg2019_social.webp",
-        t: "Code.org Express",
-        d: { ar: "6 حصص", en: "6 sessions" },
-      },
-      {
-        img: "/377-3774504_scratch-logo-hd-png-download.png",
-        t: "Scratch",
-        d: { ar: "6 حصص", en: "6 sessions" },
-      },
-    ],
-    "المستوى الثاني": [
-      {
-        img: "/7c53b61d-0a24-408b-84e6-1bcec10775f6.png",
-        t: "PictoBlox (ML)",
-        d: { ar: "6 حصص", en: "6 sessions" },
-      },
-      {
-        img: "/images.png",
-        t: "EduBlocks (Web)",
-        d: { ar: "6 حصص", en: "6 sessions" },
-      },
-      {
-        img: "/images (1).png",
-        t: "EduBlocks (Python)",
-        d: { ar: "6 حصص", en: "6 sessions" },
-      },
-      {
-        img: "/MIT-App-Inventor-Platform-Icon-MIT-App-Inventor-is-a-platform-for-creating-open-source_Q320.jpg",
-        t: "MIT App Inventor",
-        d: { ar: "6 حصص", en: "6 sessions" },
-      },
-    ],
-    "المستوى الثالث": [
-      {
-        img: "/HTML-CSS-JS-Logo.png",
-        t: "Web Development",
-        d: { ar: "24 حصه", en: "24 sessions" },
-      },
-      {
-        img: "/Python.svg.png",
-        t: "Python",
-        d: { ar: "18 حصه", en: "18 sessions" },
-      },
-    ],
-  });
+  >({});
 
   const tabs = {
     ar: ["المستوى الاول", "المستوى الثاني", "المستوى الثالث"],

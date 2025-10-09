@@ -22,8 +22,14 @@ export async function GET() {
         d: {
           ar: course.sessionsAr,
           en: course.sessionsEn
-        }
+        },
+        order: course.order || 999
       });
+    });
+
+    // Sort courses within each level by order
+    Object.keys(groupedCourses).forEach(level => {
+      groupedCourses[level].sort((a, b) => (a.order || 999) - (b.order || 999));
     });
 
     return NextResponse.json({
@@ -65,6 +71,7 @@ export async function POST(request: NextRequest) {
           imageUrl: course.img,
           sessionsAr: course.d.ar,
           sessionsEn: course.d.en,
+          order: course.order || 999,
           createdAt: new Date(),
           updatedAt: new Date()
         });

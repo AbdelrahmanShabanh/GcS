@@ -302,7 +302,6 @@ function ProjectForm({
                   description: { ...formData.description, ar: e.target.value },
                 })
               }
-              required
               rows={3}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
@@ -320,7 +319,6 @@ function ProjectForm({
                   description: { ...formData.description, en: e.target.value },
                 })
               }
-              required
               rows={3}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
