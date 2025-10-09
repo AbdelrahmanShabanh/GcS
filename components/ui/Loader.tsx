@@ -9,7 +9,19 @@ export default function Loader({ isLoading, progress = 0 }: LoaderProps) {
   if (!isLoading) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-white w-full h-full min-h-screen"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: "100vw",
+        height: "100vh",
+        zIndex: 9999,
+      }}
+    >
       <div className="relative">
         {/* Main spinning circle */}
         <div className="w-20 h-20 border-4 border-gray-200 border-t-teal-500 rounded-full animate-spin"></div>
