@@ -212,17 +212,97 @@ function ProjectForm({
       en: project?.description.en || "",
     },
   });
+  const [isCompressing, setIsCompressing] = useState(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Check file size (limit to 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        alert(
+          "Image size must be less than 2MB. Please compress the image or choose a smaller file."
+        );
+        return;
+      }
+
+      setIsCompressing(true);
       const reader = new FileReader();
       reader.onload = (event) => {
         const imageUrl = event.target?.result as string;
-        setFormData({ ...formData, img: imageUrl });
+
+        // Check if it's a GIF
+        if (
+          file.type === "image/gif" ||
+          file.name.toLowerCase().endsWith(".gif")
+        ) {
+          // For GIFs, we'll use the original file but with size validation
+          if (file.size > 1 * 1024 * 1024) {
+            // 1MB limit for GIFs
+            alert(
+              "GIF size must be less than 1MB. Please compress the GIF or choose a smaller file."
+            );
+            setIsCompressing(false);
+            return;
+          }
+          setFormData({ ...formData, img: imageUrl });
+          setIsCompressing(false);
+        } else {
+          // For other images, compress them
+          compressImage(imageUrl, (compressedUrl) => {
+            setFormData({ ...formData, img: compressedUrl });
+            setIsCompressing(false);
+          });
+        }
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const compressImage = (
+    src: string,
+    callback: (compressedSrc: string) => void
+  ) => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+
+    img.onload = () => {
+      // Calculate new dimensions (max 800px width, maintain aspect ratio)
+      const maxWidth = 800;
+      const maxHeight = 600;
+      let { width, height } = img;
+
+      if (width > maxWidth) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+      }
+
+      if (height > maxHeight) {
+        width = (width * maxHeight) / height;
+        height = maxHeight;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      // Draw and compress
+      ctx?.drawImage(img, 0, 0, width, height);
+
+      // Convert to base64 with compression (0.8 quality)
+      const compressedSrc = canvas.toDataURL("image/jpeg", 0.8);
+
+      // Check if compressed size is still too large (limit to 500KB)
+      const sizeInBytes = (compressedSrc.length * 3) / 4;
+      if (sizeInBytes > 500 * 1024) {
+        // Further compress with lower quality
+        const furtherCompressedSrc = canvas.toDataURL("image/jpeg", 0.6);
+        callback(furtherCompressedSrc);
+      } else {
+        callback(compressedSrc);
+      }
+    };
+
+    img.src = src;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -268,23 +348,26 @@ function ProjectForm({
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             <p className="text-xs text-gray-500 mt-1">
-              Supports images (JPG, PNG, WebP) and GIFs
+              Supports images (JPG, PNG, WebP) and GIFs. Max size: 2MB for
+              images, 1MB for GIFs (images will be compressed automatically,
+              GIFs keep original quality)
             </p>
+            {isCompressing && (
+              <div className="mt-2 text-sm text-blue-600">
+                Processing image...
+              </div>
+            )}
             {formData.img && (
               <div className="mt-2">
-                {formData.img.endsWith(".gif") ||
-                formData.img.includes("data:image/gif") ? (
-                  <img
-                    src={formData.img}
-                    alt="Preview"
-                    className="w-20 h-20 object-cover rounded-md border"
-                  />
-                ) : (
-                  <img
-                    src={formData.img}
-                    alt="Preview"
-                    className="w-20 h-20 object-cover rounded-md border"
-                  />
+                <img
+                  src={formData.img}
+                  alt="Preview"
+                  className="w-20 h-20 object-cover rounded-md border"
+                />
+                {formData.img.includes("data:image/gif") && (
+                  <p className="text-xs text-green-600 mt-1">
+                    ✓ GIF animation preserved
+                  </p>
                 )}
               </div>
             )}

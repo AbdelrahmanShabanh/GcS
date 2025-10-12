@@ -62,6 +62,16 @@ export default function Leaders({ lang }: LeadersProps) {
     }
   };
 
+  // Handle mouse enter - disable body scroll
+  const handleMouseEnter = () => {
+    document.body.style.overflow = "hidden";
+  };
+
+  // Handle mouse leave - enable body scroll
+  const handleMouseLeave = () => {
+    document.body.style.overflow = "auto";
+  };
+
   const content = {
     ar: {
       title: "آراء بعض عملائنا",
@@ -105,6 +115,8 @@ export default function Leaders({ lang }: LeadersProps) {
               WebkitOverflowScrolling: "touch",
             }}
             onWheel={handleWheel}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             {testimonials.map((testimonial, index) => (
               <div

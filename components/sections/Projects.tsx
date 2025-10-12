@@ -47,6 +47,16 @@ export default function Projects({ lang }: ProjectsProps) {
     }
   };
 
+  // Handle mouse enter - disable body scroll
+  const handleMouseEnter = () => {
+    document.body.style.overflow = "hidden";
+  };
+
+  // Handle mouse leave - enable body scroll
+  const handleMouseLeave = () => {
+    document.body.style.overflow = "auto";
+  };
+
   const content = {
     ar: {
       title: "اكتشف بعض من مشاريع الطلاب",
@@ -73,6 +83,8 @@ export default function Projects({ lang }: ProjectsProps) {
               WebkitOverflowScrolling: "touch",
             }}
             onWheel={handleWheel}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             {items.map((item, index) => (
               <div

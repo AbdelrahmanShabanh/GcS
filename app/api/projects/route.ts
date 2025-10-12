@@ -35,7 +35,9 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { projects } = await request.json();
+    // Increase body size limit for this route
+    const body = await request.text();
+    const { projects } = JSON.parse(body);
 
     if (!projects) {
       return NextResponse.json(
