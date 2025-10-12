@@ -51,19 +51,12 @@ export default function Leaders({ lang }: LeadersProps) {
     loadLeaders();
   }, []);
 
-  const scrollLeft = () => {
+  // Handle mouse wheel horizontal scrolling
+  const handleWheel = (e: React.WheelEvent) => {
     if (scrollContainerRef.current) {
+      e.preventDefault();
       scrollContainerRef.current.scrollBy({
-        left: -320, // Scroll by one card width (320px)
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: 320, // Scroll by one card width (320px)
+        left: e.deltaY,
         behavior: "smooth",
       });
     }
@@ -111,6 +104,7 @@ export default function Leaders({ lang }: LeadersProps) {
               msOverflowStyle: "none",
               WebkitOverflowScrolling: "touch",
             }}
+            onWheel={handleWheel}
           >
             {testimonials.map((testimonial, index) => (
               <div
@@ -153,50 +147,6 @@ export default function Leaders({ lang }: LeadersProps) {
               </div>
             ))}
           </div>
-
-          {/* Left/Right arrows in orange circle */}
-          {testimonials.length > 1 && (
-            <div className="flex justify-between items-center mt-2 px-4">
-              {/* Left arrow */}
-              <button
-                onClick={scrollLeft}
-                className="w-6 h-6 bg-orange-400 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors cursor-pointer"
-              >
-                <svg
-                  className="w-3 h-3 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              {/* Right arrow */}
-              <button
-                onClick={scrollRight}
-                className="w-6 h-6 bg-orange-400 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors cursor-pointer"
-              >
-                <svg
-                  className="w-3 h-3 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-            </div>
-          )}
         </div>
       </div>
 
