@@ -15,6 +15,7 @@ export default function ProjectsAdmin() {
   const [isLoading, setIsLoading] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [saveProgress, setSaveProgress] = useState({ current: 0, total: 0 });
 
   useEffect(() => {
     // Load existing data from API
@@ -41,37 +42,97 @@ export default function ProjectsAdmin() {
 
   const handleSave = async () => {
     setIsLoading(true);
-    try {
-      // Transform data to match API format
-      const transformedProjects = projects.map((project) => ({
-        name: project.name,
-        image: project.img,
-        description: project.description,
-      }));
+    setSaveProgress({ current: 0, total: projects.length });
 
-      const response = await ApiClient.updateProjects(transformedProjects);
-      if (response.success) {
-        alert("Projects updated successfully!");
-        // Reload data from database
-        const reloadResponse = await ApiClient.getProjects();
-        if (reloadResponse.success && reloadResponse.data) {
-          const transformedProjects = reloadResponse.data.map(
-            (project: any) => ({
-              id: project.id,
-              name: project.name,
-              img: project.image,
-              description: project.description,
-            })
-          );
-          setProjects(transformedProjects);
+    try {
+      // Try the new individual save approach first
+      try {
+        // First, clear all existing projects
+        const clearResponse = await fetch("/api/projects/clear", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!clearResponse.ok) {
+          throw new Error("Failed to clear existing projects");
         }
-      } else {
-        alert("Error saving changes: " + response.error);
+
+        // Then save projects one by one
+        for (let i = 0; i < projects.length; i++) {
+          const project = projects[i];
+          const projectData = {
+            name: project.name,
+            image: project.img,
+            description: project.description,
+          };
+
+          console.log(
+            `Saving project ${i + 1}/${projects.length}:`,
+            project.name
+          );
+          setSaveProgress({ current: i + 1, total: projects.length });
+
+          const response = await fetch("/api/projects/single", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(projectData),
+          });
+
+          if (!response.ok) {
+            throw new Error(
+              `Failed to save project ${project.name}: ${response.status}`
+            );
+          }
+        }
+
+        alert("All projects saved successfully!");
+      } catch (individualError) {
+        console.log("Individual save failed, trying bulk save:", individualError);
+        
+        // Fallback to bulk save with aggressive compression
+        const transformedProjects = projects.map((project) => ({
+          name: project.name,
+          image: project.img,
+          description: project.description,
+        }));
+
+        // Check if we can compress the data enough
+        const payloadSize = JSON.stringify(transformedProjects).length;
+        console.log("Fallback payload size:", payloadSize, "bytes");
+        
+        if (payloadSize > 500000) { // 500KB limit for fallback
+          throw new Error("Data is still too large even for fallback. Please reduce image sizes.");
+        }
+
+        const response = await ApiClient.updateProjects(transformedProjects);
+        if (response.success) {
+          alert("Projects saved successfully using fallback method!");
+        } else {
+          throw new Error(response.error || "Fallback save failed");
+        }
+      }
+
+      // Reload data from database
+      const reloadResponse = await ApiClient.getProjects();
+      if (reloadResponse.success && reloadResponse.data) {
+        const transformedProjects = reloadResponse.data.map((project: any) => ({
+          id: project.id,
+          name: project.name,
+          img: project.image,
+          description: project.description,
+        }));
+        setProjects(transformedProjects);
       }
     } catch (error) {
-      alert("Error saving changes");
+      console.error("Save error:", error);
+      alert("Error saving projects: " + error);
     } finally {
       setIsLoading(false);
+      setSaveProgress({ current: 0, total: 0 });
     }
   };
 
@@ -181,13 +242,28 @@ export default function ProjectsAdmin() {
       )}
 
       {/* Save Button */}
-      <div className="flex justify-end">
+      <div className="flex justify-between items-center">
+        <div className="text-sm text-gray-600">
+          Total projects: {projects.length} | Payload size:{" "}
+          {Math.round(
+            JSON.stringify(
+              projects.map((p) => ({
+                name: p.name,
+                image: p.img,
+                description: p.description,
+              }))
+            ).length / 1024
+          )}
+          KB
+        </div>
         <button
           onClick={handleSave}
           disabled={isLoading}
           className="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          {isLoading ? "Saving..." : "Save Changes"}
+          {isLoading
+            ? `Saving... ${saveProgress.current}/${saveProgress.total}`
+            : "Save Changes"}
         </button>
       </div>
     </div>
@@ -236,10 +312,10 @@ function ProjectForm({
           file.name.toLowerCase().endsWith(".gif")
         ) {
           // For GIFs, we'll use the original file but with size validation
-          if (file.size > 1 * 1024 * 1024) {
-            // 1MB limit for GIFs
+          if (file.size > 500 * 1024) {
+            // 500KB limit for GIFs
             alert(
-              "GIF size must be less than 1MB. Please compress the GIF or choose a smaller file."
+              "GIF size must be less than 500KB. Please compress the GIF or choose a smaller file."
             );
             setIsCompressing(false);
             return;
@@ -267,9 +343,9 @@ function ProjectForm({
     const img = new Image();
 
     img.onload = () => {
-      // Calculate new dimensions (max 800px width, maintain aspect ratio)
-      const maxWidth = 800;
-      const maxHeight = 600;
+      // Calculate new dimensions (max 400px width for better compression)
+      const maxWidth = 400;
+      const maxHeight = 300;
       let { width, height } = img;
 
       if (width > maxWidth) {
@@ -288,14 +364,14 @@ function ProjectForm({
       // Draw and compress
       ctx?.drawImage(img, 0, 0, width, height);
 
-      // Convert to base64 with compression (0.8 quality)
-      const compressedSrc = canvas.toDataURL("image/jpeg", 0.8);
+      // Convert to base64 with high compression (0.5 quality)
+      const compressedSrc = canvas.toDataURL("image/jpeg", 0.5);
 
-      // Check if compressed size is still too large (limit to 500KB)
+      // Check if compressed size is still too large (limit to 200KB)
       const sizeInBytes = (compressedSrc.length * 3) / 4;
-      if (sizeInBytes > 500 * 1024) {
-        // Further compress with lower quality
-        const furtherCompressedSrc = canvas.toDataURL("image/jpeg", 0.6);
+      if (sizeInBytes > 200 * 1024) {
+        // Further compress with even lower quality
+        const furtherCompressedSrc = canvas.toDataURL("image/jpeg", 0.3);
         callback(furtherCompressedSrc);
       } else {
         callback(compressedSrc);
@@ -349,7 +425,7 @@ function ProjectForm({
             />
             <p className="text-xs text-gray-500 mt-1">
               Supports images (JPG, PNG, WebP) and GIFs. Max size: 2MB for
-              images, 1MB for GIFs (images will be compressed automatically,
+              images, 500KB for GIFs (images will be compressed automatically,
               GIFs keep original quality)
             </p>
             {isCompressing && (
